@@ -85,6 +85,19 @@ section h2 {
   padding: 10px 18px;
 }
 
+.project-sort-control {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+#project-sort {
+  padding: 8px;
+  font: inherit;
+}
+
 .filter-btn[aria-pressed="true"] {
   background-color: #d98eaa;
   font-weight: bold;

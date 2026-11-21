@@ -10,41 +10,69 @@ if (currentHour < 12) {
   greeting.textContent = "Good evening! Welcome to my portfolio.";
 }
 
-/* Project Filtering */
+/* Project Filtering and Sorting */
 const filterButtons = document.querySelectorAll(".filter-btn");
-const projectCards = document.querySelectorAll("#projects-list article");
+const projectsList = document.getElementById("projects-list");
+const projects = Array.from(projectsList.querySelectorAll("article"), (card) => ({
+  card,
+  name: card.querySelector("h3").textContent.trim(),
+  category: card.dataset.category,
+  date: card.dataset.date,
+}));
+const projectSort = document.getElementById("project-sort");
 const emptyMessage = document.getElementById("projects-empty");
 const projectCount = document.getElementById("project-count");
+let selectedCategory = "all";
+
+function compareProjects(first, second) {
+  const order = projectSort.value;
+
+  // ISO dates sort chronologically as strings. Undated projects go last.
+  if (order !== "name" && first.date !== second.date) {
+    if (!first.date) return 1;
+    if (!second.date) return -1;
+
+    const dateOrder = first.date.localeCompare(second.date);
+    return order === "oldest" ? dateOrder : -dateOrder;
+  }
+
+  return first.name.localeCompare(second.name);
+}
+
+function updateProjects() {
+  filterButtons.forEach((button) => {
+    const isSelected = button.dataset.filter === selectedCategory;
+    button.setAttribute("aria-pressed", String(isSelected));
+  });
+
+  let visibleCount = 0;
+  projects.sort(compareProjects);
+
+  for (const project of projects) {
+    const matchesCategory =
+      selectedCategory === "all" || project.category === selectedCategory;
+    project.card.hidden = !matchesCategory;
+    projectsList.append(project.card);
+
+    if (matchesCategory) {
+      visibleCount++;
+    }
+  }
+
+  const projectLabel = visibleCount === 1 ? "project" : "projects";
+  projectCount.textContent = `${visibleCount} ${projectLabel} displayed.`;
+  emptyMessage.hidden = visibleCount > 0;
+}
 
 filterButtons.forEach((button) => {
   button.addEventListener("click", () => {
-    const selectedCategory = button.dataset.filter;
-    let visibleCount = 0;
-
-    filterButtons.forEach((filterButton) => {
-      const isSelected = filterButton === button;
-      filterButton.setAttribute("aria-pressed", String(isSelected));
-    });
-
-    projectCards.forEach((project) => {
-      const matchesCategory =
-        selectedCategory === "all" ||
-        project.dataset.category === selectedCategory;
-
-      project.hidden = !matchesCategory;
-
-      if (matchesCategory) {
-        visibleCount++;
-      }
-    });
-
-    projectCount.textContent = `${visibleCount} project(s) displayed.`;
-
-    if (emptyMessage) {
-      emptyMessage.hidden = visibleCount > 0;
-    }
+    selectedCategory = button.dataset.filter;
+    updateProjects();
   });
 });
+
+projectSort.addEventListener("change", updateProjects);
+updateProjects();
 
 /* GitHub Repositories */
 async function loadGitHubRepositories() {

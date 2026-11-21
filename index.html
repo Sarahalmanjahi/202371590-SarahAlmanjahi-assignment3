@@ -60,10 +60,19 @@
         </button>
       </div>
 
+      <div class="project-sort-control">
+        <label for="project-sort">Sort by</label>
+        <select id="project-sort">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="name" selected>Name A–Z</option>
+        </select>
+      </div>
+
       <p id="project-count" role="status"></p>
 
       <div id="projects-list">
-        <article data-category="development">
+        <article data-category="development" data-date="2024-12-15">
           <img
             src="assets/images/javafx-game.jpg"
             alt="JavaFX Game project"
@@ -79,7 +88,7 @@
           </p>
         </article>
 
-        <article data-category="design">
+        <article data-category="design" data-date="2025-11-30">
           <img
             src="assets/images/queue-system.png"
             alt="Smart Queue Management System project"
