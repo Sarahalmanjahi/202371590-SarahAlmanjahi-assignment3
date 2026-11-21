@@ -1,3 +1,32 @@
+/* Theme Preference */
+const themeToggle = document.getElementById("theme-toggle");
+const themeStorageKey = "portfolio-theme";
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  themeToggle.setAttribute("aria-pressed", String(theme === "dark"));
+}
+
+let savedTheme;
+try {
+  savedTheme = localStorage.getItem(themeStorageKey);
+} catch {
+  // The page can still switch themes when storage is unavailable.
+}
+
+applyTheme(savedTheme === "dark" ? "dark" : "light");
+
+themeToggle.addEventListener("click", () => {
+  const theme = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+  applyTheme(theme);
+
+  try {
+    localStorage.setItem(themeStorageKey, theme);
+  } catch {
+    // Keep the selected theme for this page even if it cannot be saved.
+  }
+});
+
 // Dynamic Greeting
 const greeting = document.getElementById("greeting");
 const currentHour = new Date().getHours();
