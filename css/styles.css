@@ -1,0 +1,220 @@
+/* General Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  background-color: #f5f5f5;
+  color: #222;
+}
+
+/* Header and Navigation */
+header {
+  background-color: #f3c6d3;
+  color: #2f2f2f;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin-bottom: 10px;
+}
+
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+nav a {
+  color: #2f2f2f;
+  text-decoration: none;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+nav a:focus-visible {
+  text-decoration: underline;
+}
+
+/* Main Content */
+main {
+  max-width: 1000px;
+  width: 100%;
+  margin: 30px auto;
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+section h2 {
+  margin-bottom: 15px;
+}
+
+/* About Section */
+.tagline {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Projects Section */
+#projects-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+/* Project Filter Buttons */
+.project-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.filter-btn {
+  padding: 10px 18px;
+}
+
+.filter-btn[aria-pressed="true"] {
+  background-color: #d98eaa;
+  font-weight: bold;
+}
+
+#projects-list article[hidden] {
+  display: none;
+}
+
+#projects-empty {
+  margin-top: 15px;
+  color: #666;
+}
+
+/* Project Cards */
+article {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  min-width: 0;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+article:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.15);
+}
+
+article img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: 200px;
+  object-fit: contain;
+  margin-bottom: 15px;
+  border-radius: 6px;
+}
+
+/* Contact Form */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input,
+textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #f3c6d3;
+  color: #2f2f2f;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #e8b5c4;
+}
+
+/* Keyboard Accessibility */
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+nav a:focus-visible {
+  outline: 2px solid #a54b76;
+  outline-offset: 3px;
+}
+
+/* Contact Form Feedback */
+#form-feedback:not(:empty) {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#form-feedback.success {
+  background-color: #e6f4ea;
+  color: #236b35;
+}
+
+#form-feedback.error {
+  background-color: #fde8e8;
+  color: #a12b2b;
+}
+
+/* Footer */
+footer {
+  background-color: #f3c6d3;
+  color: #2f2f2f;
+  text-align: center;
+  padding: 15px;
+}
+
+/* Responsive Design */
+@media (max-width: 700px) {
+  nav {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  #projects-list {
+    grid-template-columns: 1fr;
+  }
+
+  main {
+    margin: 15px auto;
+    padding: 15px;
+  }
+}
+
+/* Reduced Motion Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  article,
+  button {
+    transition: none;
+  }
+
+  article:hover {
+    transform: none;
+  }
+}
