@@ -13,6 +13,8 @@ OpenAI Codex (GPT-6) reviewed the inherited portfolio against the Assignment 3 r
 
 The review identified existing features that the portfolio can build on, including category filtering, client-side validation, and lazy-loaded images. It also found gaps that source inspection alone cannot resolve, including measured performance and cross-browser behavior. Those checks remain pending.
 
+For the GitHub integration, Codex used the username from the Git remote and checked GitHub’s documentation for the public repository endpoint and pagination. Mocked responses made it possible to exercise failure cases independently of the live service.
+
 ## Learning Outcomes
 
 Topics identified for Sarah to review include how filter selections update the DOM, how browser storage can preserve a preference after reload, and how Lighthouse measures page performance. Sarah will record her own learning outcomes after reviewing and testing the upcoming changes.
@@ -26,6 +28,7 @@ Codex checked the review findings against the source files and checked the archi
 | ID | Tool (model) | Date | Purpose | Files affected | What you changed and how you verified it |
 |---|---|---|---|---|---|
 | C01 | OpenAI Codex (GPT-6) | 2026-11-21 | Review the Assignment 2 baseline against the Assignment 3 rubric, prepare the AI report, and protect private evidence from accidental staging | `docs/ai-usage-report.md`, `docs/ai-usage-report-assignment2.md`, `.gitignore` | Codex drafted this report, copied the prior report verbatim, and added ignore rules for the evidence. It compared the archive against the original, checked the ignore rules, and reviewed the Git diff. Sarah’s review is pending. |
+| C02 | OpenAI Codex (GPT-6) | 2026-11-21 | Implement the GitHub REST API integration for the portfolio | `index.html`, `css/styles.css`, `js/script.js`, `docs/ai-usage-report.md` | Codex added a responsive repository section and a paginated, unauthenticated fetch. Node checks covered loading, repository names, descriptions and links, the fallback for missing descriptions, empty results, HTTP errors, and network failures. A live request returned three public repositories. Sarah’s manual browser verification is pending. |
 
 Add one entry per AI conversation or separately logged AI-generated artifact. Use `C02`, `C03`, and so on for conversations and `A01`, `A02`, and so on for artifacts. Record actual dates, tool and model labels, files affected, student modifications, and checks performed.
 
