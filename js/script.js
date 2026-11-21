@@ -70,26 +70,35 @@ function compareProjects(first, second) {
 
 function updateProjects() {
   filterButtons.forEach((button) => {
-    const isSelected = button.dataset.filter === selectedCategory;
-    button.setAttribute("aria-pressed", String(isSelected));
+    const pressed = String(button.dataset.filter === selectedCategory);
+    if (button.getAttribute("aria-pressed") !== pressed) {
+      button.setAttribute("aria-pressed", pressed);
+    }
   });
 
   let visibleCount = 0;
   projects.sort(compareProjects);
 
-  for (const project of projects) {
+  projects.forEach((project, index) => {
     const matchesCategory =
       selectedCategory === "all" || project.category === selectedCategory;
     project.card.hidden = !matchesCategory;
-    projectsList.append(project.card);
+
+    const currentCard = projectsList.children[index];
+    if (project.card !== currentCard) {
+      projectsList.insertBefore(project.card, currentCard);
+    }
 
     if (matchesCategory) {
       visibleCount++;
     }
-  }
+  });
 
   const projectLabel = visibleCount === 1 ? "project" : "projects";
-  projectCount.textContent = `${visibleCount} ${projectLabel} displayed.`;
+  const countMessage = `${visibleCount} ${projectLabel} displayed.`;
+  if (projectCount.textContent !== countMessage) {
+    projectCount.textContent = countMessage;
+  }
   emptyMessage.hidden = visibleCount > 0;
 }
 
