@@ -7,10 +7,6 @@ function applyTheme(theme) {
   const isDark = theme === "dark";
 
   themeToggle.setAttribute("aria-pressed", String(isDark));
-  themeToggle.setAttribute(
-    "aria-label",
-    isDark ? "Switch to light mode" : "Switch to dark mode"
-  );
   themeToggle.title = isDark
     ? "Switch to light mode"
     : "Switch to dark mode";
@@ -159,10 +155,14 @@ async function loadGitHubRepositories() {
         const link = document.createElement("a");
 
         heading.textContent = repository.name;
-        description.textContent = repository.description || "Personal Portfolio Website – SWE 363 Assignment 3";
+        const isPortfolio = repository.name === "202371590-SarahAlmanjahi-assignment3";
+        const fallbackDescription = isPortfolio
+          ? "Personal Portfolio Website – SWE 363 Assignment 3"
+          : "No description provided.";
+        description.textContent = repository.description || fallbackDescription;
         link.href = repository.html_url;
         link.textContent = "View on GitHub";
-        link.setAttribute("aria-label", `View ${repository.name} on GitHub`);
+        link.setAttribute("aria-label", `View on GitHub: ${repository.name}`);
         card.append(heading, description, link);
         cards.append(card);
       }

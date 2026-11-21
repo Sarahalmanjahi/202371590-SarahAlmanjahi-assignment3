@@ -20,31 +20,30 @@
       <a href="#projects">Projects</a>
       <a href="#contact">Contact</a>
     </nav>
-    
-<button
-  type="button"
-  id="theme-toggle"
-  aria-label="Switch to dark mode"
-  aria-pressed="false"
-  title="Switch to dark mode"
->
-  <svg
-    id="theme-icon"
-    xmlns="http://www.w3.org/2000/svg"
-    width="22"
-    height="22"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    stroke-width="2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    aria-hidden="true"
-  >
-    <path d="M20.985 12.486A9 9 0 0 1 11.514 3.015a9 9 0 1 0 9.47 9.47Z"/>
-  </svg>
-</button>
 
+    <button
+      type="button"
+      id="theme-toggle"
+      aria-label="Dark mode"
+      aria-pressed="false"
+      title="Switch to dark mode"
+    >
+      <svg
+        id="theme-icon"
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M20.985 12.486A9 9 0 0 1 11.514 3.015a9 9 0 1 0 9.47 9.47Z"/>
+      </svg>
+    </button>
   </header>
 
   <main>
@@ -71,7 +70,7 @@
       <h2>Projects</h2>
 
       <!-- Project Filter Buttons -->
-      <div class="project-filters" aria-label="Filter projects">
+      <div class="project-filters" role="group" aria-label="Filter projects">
         <button type="button" class="filter-btn" data-filter="all" aria-pressed="true">
           All
         </button>
@@ -121,7 +120,6 @@
             <span>OOP</span>
             <span>Event Handling</span>
           </div>
-
         </article>
 
         <article data-category="design" data-date="2025-11-30">
@@ -142,16 +140,16 @@
             The project aimed to improve the waiting experience
             through an intuitive and user-friendly interface.
           </p>
-        <div class="project-tech">
-          <span>Figma</span>
-          <span>UI/UX Design</span>
-          <span>Prototyping</span>
+          <div class="project-tech">
+            <span>Figma</span>
+            <span>UI/UX Design</span>
+            <span>Prototyping</span>
           </div>
-          </article>
-        </div>
+        </article>
+      </div>
 
       <p id="projects-empty" role="status" hidden>
-            No projects found in this category.
+        No projects found in this category.
       </p>
     </section>
 
@@ -187,6 +185,5 @@
   <footer>
     <p>&copy; 2026 Sarah Almanjahi</p>
   </footer>
-
 </body>
 </html>

@@ -1,159 +1,59 @@
-# Technical Documentation
+# Assignment 3 Technical Documentation
 
-**SWE 363 – Assignment 2: Interactive Features**
+**Sarah Almanjahi · 202371590 · SWE 363 – Web Engineering**
 
-**Student:** Sarah Almanjahi  
-**Project:** Personal Portfolio Website
+## Architecture
 
-## 1. Introduction
+The portfolio is a static page. HTML defines the landmark sections, controls, and project cards. One stylesheet controls presentation and a deferred JavaScript file wires up the document after parsing. GitHub is the only external data source. Form input stays in the browser.
 
-This document explains the technical implementation of the interactive features added to my personal portfolio website for Assignment 2.
+## GitHub API integration
 
-The website was developed using HTML, CSS, and vanilla JavaScript. Assignment 2 extends the original portfolio by adding project filtering, contact form validation, animations, and user feedback.
+`loadGitHubRepositories()` uses `fetch()` and `async`/`await` to request the public repositories for `Sarahalmanjahi` with `per_page=100&sort=updated`. GitHub's `Link` header supplies the next page URL. The request sends no credentials. Repository cards use `textContent` and the API's `html_url`, and a document fragment batches rendering after all pages are retrieved.
 
-## 2. Technologies Used
+The live status starts with a loading message. An empty response produces an empty-state message, a non-success HTTP status produces a retry message, and a rejected fetch or unreadable response produces the connection feedback. A missing description uses the Assignment 3 description for the portfolio repository and a generic fallback for other repositories. Unauthenticated requests are subject to GitHub limits. [GitHub REST repository endpoints](https://docs.github.com/en/rest/repos/repos#list-repositories-for-a-user)
 
-| Technology | Purpose |
+## Project filtering and sorting
+
+Each card supplies a `data-category`, an ISO completion date in `data-date`, and a name in its heading. JavaFX Game is dated 2024-12-15 and Smart Queue Management System is dated 2025-11-30. Selecting a category updates the in-memory selection. Changing the sort leaves that selection intact.
+
+`updateProjects()` sets the selected button's `aria-pressed` state, sorts the project records, hides nonmatching cards, counts visible cards, and updates the empty-state message. It runs once on load, then on filter and sort events. Chronological sorting compares ISO dates, placing undated cards last and using names to break equal-date ties. Name sorting uses `localeCompare()`. Cards already in the correct position stay in place.
+
+## Theme state
+
+The header theme button uses a stable **Dark mode** accessible label and reports its state through `aria-pressed`. The sun or moon icon and tooltip indicate the next action. JavaScript reads the `portfolio-theme` key at startup and applies `data-theme` to the document root. Missing or invalid preferences resolve to light. Clicks apply and save the new preference. Storage errors leave the current page interactive. CSS variables define both palettes and `color-scheme` matches native controls to the selected theme.
+
+## Contact validation
+
+The form prevents default submission. Validation trims all fields, checks for missing values, checks email syntax, and requires at least two characters for the name and ten for the message. A failed submission shows the first applicable error. Editing revalidates active errors and clears stale confirmation when a new draft begins. A successful submission resets the form and displays a message that the demo sends nothing.
+
+## Responsive design, performance, and accessibility
+
+The project and repository grids use two columns above 700 px and one column at smaller widths. The header navigation stacks on narrow screens and controls and technology badges can wrap. Both original project images have explicit intrinsic dimensions, lazy loading, asynchronous decoding, and a fixed 200 px display box with `object-fit: contain`. The JavaFX JPEG is 1280 × 744 at 38,726 bytes. The queue PNG is 638 × 1204 at 295,710 bytes and is the better candidate for a smaller WebP after comparing legibility.
+
+Semantic headings and landmarks, native controls, visible focus, image alternatives, live status messages, and reduced-motion styling support accessibility. The filter container has a group role and an accessible name. The theme icon is decorative because the button itself provides an accessible name. The accessible name of each repository link starts with its visible text and adds the repository name.
+
+## Verification record
+
+Checks performed on 2026-11-21 by Codex.
+
+| Check | Result |
 |---|---|
-| HTML5 | Defines the website structure and content |
-| CSS3 | Provides styling, animations, and responsive layouts |
-| JavaScript | Handles user interactions and dynamic content |
-| Git and GitHub | Tracks changes and manages project versions |
+| JavaScript syntax, markup references, and local assets | Node syntax check passed. Local asset paths, navigation anchors, form label targets, JavaScript element IDs, and documentation links resolved. |
+| Live GitHub endpoint | A separate unauthenticated HTTP request returned status 200 and three public repositories. |
+| GitHub UI | Headless Chrome with mocked responses passed loading, two-page rendering, description fallbacks, empty results, HTTP failure, and network failure. |
+| Project controls | Headless Chrome passed the initial count, newest and oldest sorting, and a category filter combined with sorting. Earlier Node checks covered all sort modes and the empty state. |
+| Theme | Pressing Space on the focused toggle switched to dark mode. Headless Chrome restored it after reload. Earlier Node checks covered invalid preferences and unavailable storage. |
+| Contact form | Headless Chrome showed required-field and minimum-message feedback, cleared stale feedback, and reset the form after validation. Earlier Node checks covered email format and both trimmed minimum lengths. |
+| Layout and images | Headless Chrome checked the one-column project grid at 390 px, two-column grid at 1280 px, and that both images loaded. No uncaught JavaScript exceptions were observed in the tested flows. |
+| Evidence protection | Git recognized both private evidence directories and the required ZIP filename as ignored. |
 
-No external JavaScript frameworks or backend services are required.
+### Lighthouse results
 
-## 3. Website Structure
+Lighthouse 13.6.0 audited the local HTTP site on 2026-11-21 after the repository link labels were corrected. These are automated lab measurements from one run per device preset.
 
-The website contains three main sections:
+| Preset | Performance | Accessibility | Largest Contentful Paint | Cumulative Layout Shift |
+|---|---:|---:|---:|---:|
+| Mobile | 100/100 | 100/100 | 0.99 s | 0.036 |
+| Desktop | 100/100 | 100/100 | 0.57 s | 0.021 |
 
-- **About Me:** Personal introduction and dynamic greeting.
-- **Projects:** Academic project cards and category filtering.
-- **Contact:** Contact form with client-side validation.
-
-The HTML structure is defined in `index.html`, styling is managed in `css/styles.css`, and interactive functionality is implemented in `js/script.js`.
-
-## 4. JavaScript Implementation
-
-### 4.1 Dynamic Greeting
-
-The greeting feature uses the JavaScript `Date` object to retrieve the visitor's current hour.
-
-The displayed message changes according to the time:
-
-- Before 12:00 PM: Good morning
-- From 12:00 PM to 5:59 PM: Good afternoon
-- From 6:00 PM onward: Good evening
-
-The result is displayed using the `textContent` property.
-
-### 4.2 Interactive Project Filtering
-
-The project filtering feature allows visitors to display projects based on their categories.
-
-Three filter buttons are provided: All, Development, and Design.
-
-**Implementation:**
-
-1. JavaScript selects the filter buttons and project cards using `querySelectorAll()`.
-2. An event listener detects when a filter button is clicked.
-3. The selected category is retrieved using `dataset.filter`.
-4. Each project's `data-category` attribute is compared with the selected category.
-5. Matching projects are displayed, while nonmatching projects are hidden using the `hidden` property.
-6. The selected button's `aria-pressed` attribute is updated to provide visual and accessibility feedback.
-
-An empty-state message is also included for situations where no projects match the selected category.
-
-### 4.3 Contact Form Validation
-
-The contact form collects three inputs: name, email address, and message.
-
-JavaScript uses a submit event listener to process user input.
-
-**Validation process:**
-
-1. `event.preventDefault()` prevents the default form submission.
-2. Input values are retrieved from the form fields.
-3. The `trim()` method removes unnecessary whitespace.
-4. The program checks whether any field is empty.
-5. A regular expression checks the basic format of the email address.
-6. An error message is displayed if validation fails.
-7. If validation succeeds, a confirmation message appears and the form is reset.
-
-The `textContent` property updates the feedback message, and CSS classes control the feedback styling.
-
-**Limitation:** The form performs client-side validation only. It does not transmit messages to a server or email address.
-
-## 5. CSS Implementation
-
-### 5.1 Project Layout
-
-CSS Grid arranges the project cards in two columns on larger screens.
-
-A media query changes the layout to a single column on screens narrower than 700 pixels.
-
-### 5.2 Hover Animations
-
-Project cards use CSS `transition` and `transform` properties to create smooth hover effects.
-
-When a visitor hovers over a card, it moves slightly upward and displays a stronger shadow.
-
-### 5.3 User Feedback
-
-The website uses distinct visual styles for validation messages:
-
-- Green feedback indicates successful validation.
-- Red feedback indicates invalid input.
-
-The active filter button is also highlighted to help visitors identify the selected category.
-
-## 6. Error Handling and User Feedback
-
-The website provides feedback for several user interactions.
-
-| Situation | System Response |
-|---|---|
-| Empty contact form | Displays a message requesting all required fields |
-| Invalid email format | Displays an email validation error |
-| Valid form values | Displays a validation confirmation |
-| No matching projects | Displays an empty-state message |
-| Selected project category | Highlights the active filter |
-
-These mechanisms help visitors understand the results of their actions.
-
-## 7. Testing
-
-The following functionality was manually tested during development:
-
-| Test Case | Result |
-|---|---|
-| Display all projects | Passed |
-| Filter Development projects | Passed |
-| Filter Design projects | Passed |
-| Submit an empty contact form | Passed |
-| Submit an invalid email | Passed |
-| Submit valid form values | Passed |
-
-Additional checks before final submission include responsive layout behavior, hover effects, image loading, and compatibility across browsers.
-
-## 8. Design Decisions
-
-The implementation follows several design principles:
-
-- **Simplicity:** Vanilla JavaScript is used without additional frameworks.
-- **Maintainability:** HTML, CSS, and JavaScript are organized into separate files.
-- **Consistency:** Code follows a consistent indentation and naming style.
-- **Usability:** Interactive features provide clear visual feedback.
-- **Responsiveness:** Layouts adjust to different screen sizes.
-- **Accessibility:** Semantic HTML and accessibility attributes support easier navigation and interaction.
-
-## 9. Limitations and Future Improvements
-
-The current website does not include backend functionality or persistent data storage.
-
-Possible future enhancements include a functional contact service, additional project categories, live search, and a dark/light theme preference.
-
-## 10. Conclusion
-
-Assignment 2 improves the original personal portfolio by introducing interactive JavaScript features and enhancing user experience.
-
-The implementation demonstrates DOM manipulation, event handling, basic input validation, CSS transitions, responsive layouts, and user feedback.
+The label-content-name check passed in both final runs. Manual visual and keyboard walkthroughs, cross-browser testing, and assistive-technology checks remain pending. For the audit procedure, see [Testing in the README](../README.md#testing).
