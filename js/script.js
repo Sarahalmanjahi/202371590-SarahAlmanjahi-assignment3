@@ -142,7 +142,7 @@ async function loadGitHubRepositories() {
         const link = document.createElement("a");
 
         heading.textContent = repository.name;
-        description.textContent = repository.description || "No description provided.";
+        description.textContent = repository.description || "Personal Portfolio Website – SWE 363 Assignment 3";
         link.href = repository.html_url;
         link.textContent = "View on GitHub";
         link.setAttribute("aria-label", `View ${repository.name} on GitHub`);
