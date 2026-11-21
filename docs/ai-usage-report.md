@@ -1,51 +1,45 @@
 # AI Usage Report
 
-**Course:** SWE 363 – Web Engineering  
-**Assignment:** Assignment 2 – Interactive Features  
-**Student:** Sarah Almanjahi  
+**Course:** SWE 363 – Web Engineering<br>
+**Assignment:** Assignment 3 – Advanced Functionality<br>
+**Student:** Sarah Almanjahi<br>
 **Student ID:** 202371590
 
-## 1. AI Usage Log
+## Tools Used & Use Cases
 
-This report documents the use of ChatGPT during the development of my personal portfolio for Assignment 2.
+OpenAI Codex (GPT-6) reviewed the inherited portfolio against the Assignment 3 requirements. It inspected the application source, assets, documentation, and Git history, identified gaps, and prepared this report. The [Assignment 2 AI usage report](ai-usage-report-assignment2.md) preserves the previous assignment's record.
+
+## Benefits & Challenges
+
+The review identified existing features that the portfolio can build on, including category filtering, client-side validation, and lazy-loaded images. It also found gaps that source inspection alone cannot resolve, including measured performance and cross-browser behavior. Those checks remain pending.
+
+## Learning Outcomes
+
+Topics identified for Sarah to review include how filter selections update the DOM, how browser storage can preserve a preference after reload, and how Lighthouse measures page performance. Sarah will record her own learning outcomes after reviewing and testing the upcoming changes.
+
+## Responsible Use & Modifications
+
+Codex checked the review findings against the source files and checked the archive and evidence ignore rules with Git. Sarah will confirm any manual testing and review each future implementation before continuing to the next feature. Browser testing and Lighthouse measurements were outside this documentation review.
+
+## AI Usage Log
 
 | ID | Tool (model) | Date | Purpose | Files affected | What you changed and how you verified it |
 |---|---|---|---|---|---|
-| C01 | ChatGPT (OpenAI; verify model label) | 2026-10-17 to 2026-10-19 | HTML improvements, CSS styling, JavaScript interactivity, form validation, debugging, code formatting, documentation, accessibility, and project counting | `index.html`, `css/styles.css`, `js/script.js`, `README.md`, `docs/technical-documentation.md`, `docs/ai-usage-report.md` | I integrated ChatGPT suggestions into my existing Assignment 1 portfolio while preserving my original design and project content. I added project filtering, contact form validation, hover animations, accessibility improvements, and a dynamic project counter. I corrected indentation in HTML, CSS, and JavaScript. I manually tested the filtering buttons, form validation, and project counter using Live Server. |
+| C01 | OpenAI Codex (GPT-6) | 2026-11-21 | Review the Assignment 2 baseline against the Assignment 3 rubric, prepare the AI report, and protect private evidence from accidental staging | `docs/ai-usage-report.md`, `docs/ai-usage-report-assignment2.md`, `.gitignore` | Codex drafted this report, copied the prior report verbatim, and added ignore rules for the evidence. It compared the archive against the original, checked the ignore rules, and reviewed the Git diff. Sarah’s review is pending. |
 
-## 2. AI-Assisted Git Commits
+Add one entry per AI conversation or separately logged AI-generated artifact. Use `C02`, `C03`, and so on for conversations and `A01`, `A02`, and so on for artifacts. Record actual dates, tool and model labels, files affected, student modifications, and checks performed.
 
-All the following commits involved assistance from ChatGPT in conversation C01.
+## AI Evidence and Commit Attribution
 
-| Commit ID | Commit Message | AI Assistance |
-|---|---|---|
-| `4407b04` | Initialize Assignment 2 portfolio with interactive HTML elements | HTML enhancements and interactive elements |
-| `1e01372` | Style project filters and add interactive animations | CSS styling and hover transitions |
-| `d0c9308` | Add interactive project filtering | JavaScript filtering logic |
-| `2b503b7` | Add contact form validation and user feedback | Input validation and feedback messages |
-| `e474be0` | Improve README and add Assignment 2 documentation | Documentation drafting and organization |
-| `fc43b03` | Fix HTML indentation | HTML formatting improvements |
-| `8442460` | Improve CSS formatting and accessibility | CSS organization and accessibility |
-| `a95bafe` | Improve JavaScript formatting and code quality | JavaScript code review and formatting |
-| `f8bf70f` | Improve portfolio accessibility and project filtering | SEO, keyboard accessibility, and dynamic project counter |
+Submit `202371590-SarahAlmanjahi-assignment3-ai-evidence.zip` separately. Place complete, unedited AI conversations in `conversations/` and intermediate AI-generated artifacts in `artifacts/`. Sarah is responsible for exporting the conversations and assembling the ZIP. Keep the evidence folders and ZIP outside the public Git history.
 
-These commits were created before the updated AI attribution instructions were communicated. They are explicitly documented here to provide transparency about AI assistance.
+Use an `Assisted-by:` trailer on AI-assisted code commits that names the actual tool and model. For this conversation, the attribution is `Assisted-by: OpenAI Codex (GPT-6)`.
 
-## 3. AI Usage Evidence
-
-**Conversation ID:** C01  
-**Tool:** ChatGPT (OpenAI)  
-**Topic:** Assignment 2 – Personal Portfolio Development
-
-The complete, unedited conversation will be included in the separate AI Evidence ZIP submitted through Blackboard.
-
-The evidence will also include available intermediate AI-generated artifacts and the final project files.
-
-## 4. Signed Declaration
+## AI Usage Declaration
 
 I declare that this report and the attached evidence document all of my AI use in this assignment, with complete and unedited conversations, and that I understand and can explain all the code I submitted. I understand that undeclared AI use or a false declaration will be treated as plagiarism according to KFUPM regulations.
 
-**Full Name:** Sarah Almanjahi  
-**Student ID:** 202371590  
-**Date:** 2026-10-19  
-**Signature:** Sarah
+**Full Name:** Sarah Almanjahi<br>
+**Student ID:** 202371590<br>
+**Date:** 11/21/2026<br>
+**Signature:** SarahS.
