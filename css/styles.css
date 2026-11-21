@@ -126,9 +126,42 @@ section h2 {
 }
 
 /* About Section */
+#about h2 {
+  font-size: 30px;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
 .tagline {
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--focus);
+  margin-bottom: 16px;
+}
+
+.about-description {
+  font-size: 17px;
+  color: var(--muted-text);
+  line-height: 1.7;
+}
+
+#greeting {
+  font-size: 16px;
   margin-bottom: 10px;
+}
+
+@media (max-width: 700px) {
+  #about h2 {
+    font-size: 26px;
+  }
+
+  .tagline {
+    font-size: 18px;
+  }
+
+  .about-description {
+    font-size: 16px;
+  }
 }
 
 /* Projects Section */
