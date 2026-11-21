@@ -197,6 +197,23 @@ article a:visited {
   color: var(--visited-link);
 }
 
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 15px;
+}
+
+.project-tech span {
+  background-color: #e7c8d3;
+  color: #29252b;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+
 /* Contact Form */
 form {
   display: flex;
