@@ -164,28 +164,44 @@ loadGitHubRepositories();
 const contactForm = document.getElementById("contact-form");
 const formFeedback = document.getElementById("form-feedback");
 
+function getContactError() {
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const message = document.getElementById("message").value.trim();
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!name) return "Please enter your name.";
+  if (!email) return "Please enter your email address.";
+  if (!message) return "Please enter a message.";
+  if (!emailPattern.test(email)) return "Please enter a valid email address.";
+  if (name.length < 2) return "Please enter a name with at least 2 characters.";
+  if (message.length < 10) return "Please enter a message with at least 10 characters.";
+
+  return "";
+}
+
 if (contactForm && formFeedback) {
   contactForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const name = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const message = document.getElementById("message").value.trim();
-
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!name || !email || !message) {
-      formFeedback.textContent = "Please fill in all fields.";
+    const error = getContactError();
+    if (error) {
+      formFeedback.textContent = error;
       formFeedback.className = "error";
-    } else if (!emailPattern.test(email)) {
-      formFeedback.textContent = "Please enter a valid email address.";
-      formFeedback.className = "error";
-    } else {
-      formFeedback.textContent =
-        "Form validated successfully! This demo does not send messages.";
-      formFeedback.className = "success";
+      return;
+    }
 
-      contactForm.reset();
+    formFeedback.textContent =
+      "Form validated successfully! This demo does not send messages.";
+    formFeedback.className = "success";
+    contactForm.reset();
+  });
+
+  contactForm.addEventListener("input", () => {
+    const error = formFeedback.className === "error" ? getContactError() : "";
+    if (formFeedback.textContent !== error) {
+      formFeedback.textContent = error;
+      formFeedback.className = error ? "error" : "";
     }
   });
 }
